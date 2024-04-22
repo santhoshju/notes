@@ -1,0 +1,197 @@
+"1 st class"
+
+import java.util.*;
+
+public class Main
+{
+    public static Scanner sc = new Scanner(System.in);
+   
+    public static void booking(Pasenger p){
+       
+    Details d = new Details();
+   
+    if(p.VehicleName.equals("bike") && d.low>0){
+       
+        String C_details = "Customer id: " + p.c_Id + " Customer Name: " + p.name +"  vehicle Name: " + p.VehicleName +
+                           " Vehicle Number plate: " + p.NumberPlate;
+                           
+         d.addDetails(p, C_details);
+         
+         System.out.println("-----Slot Booked Successfully-----");
+         
+       
+    }
+    else if(p.VehicleName.equals("car") && d.middle>0){
+        String C_details = "Customer id: " + p.c_Id + " Customer Name: " + p.name +"  vehicle Name: " + p.VehicleName +
+                           " Vehicle Number plate: " + p.NumberPlate;
+                           
+         d.addDetails(p, C_details);
+         
+         System.out.println("-----Slot Booked Successfully-----");
+       
+       
+    }
+    else if(p.VehicleName.equals("bus") && d.upper>0){
+        String C_details = "Customer id: " + p.c_Id + " Customer Name: " + p.name +"  vehicle Name: " + p.VehicleName +
+                           " Vehicle Number plate: " + p.NumberPlate;
+                           
+         d.addDetails(p, C_details);
+         
+         System.out.println("-----Slot Booked Successfully-----");
+       
+    }
+    else{
+        System.out.println("No slot is available");
+    }
+       
+    }
+   
+    public static void cancel(int id){
+        Details d = new Details();
+        if(d.Id_list.size() < id){
+            System.out.println("no car is perked on this id");
+            System.out.println("         -------------------------       ");
+            return ;
+        }
+       
+        d.removeCar(id);
+    }
+   
+public static void main(String[] args) {
+
+while(true){
+   System.out.println("Enter the choice 1. book  2. return 3. print");
+   
+   int choice = sc.nextInt();
+   Details d = new Details();
+   
+   switch(choice){
+       case 1:{
+           if(d.low<1 && d.middle<1 && d.upper<1){
+               System.out.println("No slot is available");
+               return ;
+           }
+           System.out.println("Enter the name");
+           String name = sc.next();
+           System.out.println("Enter the vehicle name");
+           String V_name = sc.next();
+           
+           System.out.println("Enter the number plate");
+           String No_plate = sc.next();
+           
+           Pasenger p =  new Pasenger(name, V_name, No_plate);
+           booking(p);
+           
+           break;
+       }
+       case 2:{
+           System.out.println("enter the Customer Id");
+           int id = sc.nextInt();
+           cancel(id);
+           break;
+       }
+       case 3:{
+           d.printDetails();
+           break;
+       }
+   }
+}
+
+}
+}
+
+
+"2nd class"
+
+import java.util.*;
+
+public class Details{
+   
+    static int low =1;
+    static int middle =1;
+    static int upper = 1;
+   
+    static ArrayList<Integer> Id_list = new ArrayList<>();
+    static ArrayList<String> Name_list = new ArrayList<>();
+    static ArrayList<String> Vehicle_list = new ArrayList<>();
+    static ArrayList<String> Numberplate_list = new ArrayList<>();
+    static ArrayList<String> Customer_list = new ArrayList<>();
+   
+    public static void addDetails(Pasenger p,  String C_details){
+        Id_list.add(p.c_Id);
+        Name_list.add(p.name);
+        Vehicle_list.add(p.VehicleName);
+        Numberplate_list.add(p.NumberPlate);
+        Customer_list.add(C_details);
+       
+        if(p.VehicleName.equals("bike"))
+        low=low-1;
+       
+        else if(p.VehicleName.equals("car"))
+        middle= middle -1;
+       
+        else if(p.VehicleName.equals("bus")){
+            upper = upper-1;
+        }
+    }
+   
+    public static void removeCar(int id){
+        int index = Id_list.indexOf(id);
+        String V_name = Vehicle_list.get(index);
+       
+        Id_list.remove(index);
+        Name_list.remove(index);
+        Vehicle_list.remove(index);
+        Numberplate_list.remove(index);
+        Customer_list.remove(index);
+       
+        if(V_name.equals("car"))
+            low+=1;
+       
+        if(V_name.equals("car"))
+            middle+=1;
+       
+        if(V_name.equals("car"))
+        upper+=1;
+           
+       
+    }
+   
+   
+    public static void printDetails(){
+        for(int i=0;i<Customer_list.size();i++){
+            System.out.println(Customer_list.get(i));
+            System.out.println("            ---------------------------------------------------------- ---------         ");
+        }
+    }
+}
+
+
+"3rd class"
+public class Pasenger{
+    static int id=1;
+    int c_Id;
+    String name;
+    String VehicleName;
+    String NumberPlate;
+    //String slotPrefer;
+   
+    public Pasenger(String name, String VehicleName, String NumberPlate){
+        c_Id = id++;
+        this.name = name;
+        this.VehicleName = VehicleName;
+        this. NumberPlate = NumberPlate;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+v
