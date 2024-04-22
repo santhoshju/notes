@@ -1,0 +1,147 @@
+import java.util.*;
+
+public class Main
+{
+    public static Scanner sc = new Scanner(System.in);
+    public static void AddBill(Bill currentStore, int Emp_id){
+        
+        System.out.println("enter the purchase store name");
+        String Store_name = sc.next();
+        sc.next();
+        
+        System.out.println("enter the employee Name");
+        String Emp_name= sc.next();
+        sc.next();
+        
+        System.out.println("enter the purchase Item");
+        String purchase_item = sc.next();
+        sc.next();
+        
+        System.out.println("enter the purhcase Amount");
+        int purchase_amt = sc.nextInt();
+        sc.next();
+        
+        System.out.println("enter the purchase Date");
+        String purchase_date = sc.next();
+        sc.next();
+        
+        String details ="Store Name: " + Store_name + "  Employee Id: "+ Emp_id + "  Employee Name: " + Emp_name + 
+                "  Purchase Item: " + purchase_item + "  Purchase Amount: " + purchase_amt + "  Purchase Date: " + purchase_date;
+                
+                System.out.println("Bill Added Successfully ");
+                System.out.println(details);
+                
+         currentStore.AddDetails(Emp_id, Store_name, Emp_name, purchase_item, purchase_amt, purchase_date, details);
+         
+         //currentStore.print();
+    }
+    
+	public static void main(String[] args) {
+		
+		ArrayList<Bill> bill = new ArrayList<>();
+		// 1. saravana Store 2. HMR biriyani 3. vasanth@co
+		
+		for(int i=0;i<3;i++){
+		    bill.add(new Bill());
+		}
+		int Emp_id =1;
+		while(true){
+		    System.out.println("1. Add Bill     2. print Bill details");
+		    
+		    int choice = sc.nextInt();
+		    
+		    switch(choice){
+		        case 1:{
+		            System.out.println("Enter your store Id");
+		            
+		            int store_id = sc.nextInt();
+		            
+		            if(store_id > bill.size()){
+		                bill.add(new Bill());
+		            }
+		            
+		            Bill currentStore= null;
+		            for(Bill b:bill){
+		                if(store_id == b.storeid){
+		                    currentStore = b;
+		                    break;
+		                }
+		            }
+		            
+		            AddBill(currentStore, Emp_id);
+		            Emp_id++;
+		            break;
+		        }
+		        case 2:{
+		            
+		            for(Bill b : bill){
+		                b.print();
+		            }
+		            
+		            break;
+		        }
+		            
+		    }
+		}
+		
+	}
+}
+
+
+import java.util.*;
+public class Bill{
+    
+    static int Id =1;
+    int storeid;
+    int Employeeid;
+    String StoreName;
+    String EmployeeName;
+    String purchaseItem;
+    int purchaseAmount;
+    String date;
+    ArrayList<String> BillDetails;
+     static ArrayList<Integer>Emp_id = new ArrayList<>();
+     static ArrayList<String> Emp_name = new ArrayList<>();
+     static ArrayList<String> store_name = new ArrayList<>();
+     static ArrayList<String> purchase_item = new ArrayList<>();
+     static ArrayList<Integer>  AmountOfpurchase = new ArrayList<>();
+      static ArrayList<String> dateOfpurchase = new ArrayList<>();
+    
+   public Bill(){
+         storeid = Id++;
+         Employeeid = 0;
+         EmployeeName = "";
+         StoreName = "";
+         purchaseItem = "";
+         purchaseAmount=0;
+         date = "";
+         BillDetails = new ArrayList<>();
+    }
+    
+    public void AddDetails(int Employeeid, String StoreName, String EmployeeName, String purchaseItem,
+                            int purchaseAmount, String date, String details){
+                                
+                            this.StoreName = StoreName;
+                            this.EmployeeName = EmployeeName;
+                            this.purchaseItem = purchaseItem;
+                            this.purchaseAmount = purchaseAmount;
+                            this.date = date;
+                            BillDetails.add(details);
+                            Emp_id.add(Employeeid);
+                            store_name.add(StoreName);
+                            Emp_name.add(EmployeeName);
+                            purchase_item.add(purchaseItem);
+                            AmountOfpurchase.add(purchaseAmount);
+                            dateOfpurchase.add(date);
+                            
+                            
+    }
+    
+    
+    public void print(){
+        for(int i=0;i<BillDetails.size();i++){
+            System.out.println(BillDetails.get(i));
+        }
+    }
+    
+}
